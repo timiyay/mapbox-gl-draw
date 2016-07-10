@@ -860,7 +860,7 @@ function runTests() {
         properties: {},
         geometry: {
           type: 'Polygon',
-          coordinates: [[[240, 240], [260, 260], [300, 200], [240, 240]]]
+          coordinates: [[[240, 240], [260, 260], [-60, 200], [240, 240]]]
         }
       };
       firedWith(t, 'draw.create', {

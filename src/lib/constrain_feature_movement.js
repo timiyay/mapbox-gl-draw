@@ -1,4 +1,5 @@
 const extent = require('geojson-extent');
+const longitudeOffset = require('./longitude_offset');
 const Constants = require('../constants');
 
 const {
@@ -56,11 +57,9 @@ module.exports = function(geojsonFeatures, delta) {
   if (southOuterEdge + constrainedDelta.lat < LAT_MIN) {
     constrainedDelta.lat = LAT_MIN - southOuterEdge;
   }
-  if (westEdge + constrainedDelta.lng <= LNG_MIN) {
-    constrainedDelta.lng += Math.ceil(Math.abs(constrainedDelta.lng) / 360) * 360;
-  }
-  if (eastEdge + constrainedDelta.lng >= LNG_MAX) {
-    constrainedDelta.lng -= Math.ceil(Math.abs(constrainedDelta.lng) / 360) * 360;
+  if (westEdge + constrainedDelta.lng <= LNG_MIN
+    || eastEdge + constrainedDelta.lng >= LNG_MAX) {
+    constrainedDelta.lng += longitudeOffset(constrainedDelta.lng);
   }
 
   return constrainedDelta;

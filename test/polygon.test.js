@@ -27,13 +27,12 @@ test('Polygon constructor and API', t => {
   // Prototype members
   t.equal(typeof Polygon.prototype.isValid, 'function', 'polygon.isValid');
   t.equal(typeof Polygon.prototype.incomingCoords, 'function', 'polygon.incomingCoords');
-  t.equal(typeof Polygon.prototype.setCoordinates, 'function', 'polygon.setCoordinates');
   t.equal(typeof Polygon.prototype.addCoordinate, 'function', 'polygon.addCoordinate');
   t.equal(typeof Polygon.prototype.getCoordinate, 'function', 'polygon.getCoordinate');
   t.equal(typeof Polygon.prototype.getCoordinates, 'function', 'polygon.getCoordinates');
   t.equal(typeof Polygon.prototype.removeCoordinate, 'function', 'polygon.removeCoordinate');
   t.equal(typeof Polygon.prototype.updateCoordinate, 'function', 'polygon.updateCoordinate');
-  t.equal(getPublicMemberKeys(Polygon.prototype).length, 8, 'no unexpected prototype members');
+  t.equal(getPublicMemberKeys(Polygon.prototype).length, 7, 'no unexpected prototype members');
 
   t.ok(Polygon.prototype instanceof Feature, 'inherits from Feature');
 
