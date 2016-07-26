@@ -1,8 +1,10 @@
 var Feature = require('./feature');
+var constrainLongitude = require('../lib/constrain_longitude');
+var constrainFeatureLongitude = require('../lib/constrain_feature_longitude');
 
 var Polygon = function(ctx, geojson) {
   Feature.call(this, ctx, geojson);
-  this.coordinates = this.coordinates.map(ring => ring.slice(0, -1));
+  this.coordinates = constrainFeatureLongitude(this.coordinates.map(ring => ring.slice(0, -1)));
 };
 
 Polygon.prototype = Object.create(Feature.prototype);
@@ -30,7 +32,7 @@ Polygon.prototype.addCoordinate = function(path, lng, lat) {
 
   var ring = this.coordinates[ids[0]];
 
-  ring.splice(ids[1], 0, [lng, lat]);
+  ring.splice(ids[1], 0, [constrainLongitude(lng), lat]);
 };
 
 Polygon.prototype.removeCoordinate = function(path) {
@@ -65,7 +67,7 @@ Polygon.prototype.updateCoordinate = function(path, lng, lat) {
     this.coordinates[ringId] = [];
   }
 
-  this.coordinates[ringId][coordId] = [lng, lat];
+  this.coordinates[ringId][coordId] = [constrainLongitude(lng), lat];
 };
 
 module.exports = Polygon;

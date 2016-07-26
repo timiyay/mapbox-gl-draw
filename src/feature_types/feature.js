@@ -1,16 +1,13 @@
 var hat = require('hat');
-var endlessLongitudeChunk = require('../lib/endless_longitude_chunk');
 var Constants = require('../constants');
+var constrainFeatureLongitude = require('../lib/constrain_feature_longitude');
 
 var Feature = function(ctx, geojson) {
   this.ctx = ctx;
   this.properties = geojson.properties || {};
-  this.coordinates = geojson.geometry.coordinates;
+  this.coordinates = constrainFeatureLongitude(geojson.geometry.coordinates);
   this.id = geojson.id || hat();
   this.type = geojson.geometry.type;
-  if (this.coordinates) {
-    this._longitudinalChunk = endlessLongitudeChunk(this.coordinates);
-  }
 };
 
 Feature.prototype.changed = function() {

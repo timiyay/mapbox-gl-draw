@@ -1,4 +1,5 @@
 var Feature = require('./feature');
+var constrainLongitude = require('../lib/constrain_longitude');
 
 var Point = function(ctx, geojson) {
   Feature.call(this, ctx, geojson);
@@ -13,9 +14,9 @@ Point.prototype.isValid = function() {
 
 Point.prototype.updateCoordinate = function(pathOrLng, lngOrLat, lat) {
   if (arguments.length === 3) {
-    this.coordinates = [lngOrLat, lat];
+    this.coordinates = [constrainLongitude(lngOrLat), lat];
   } else {
-    this.coordinates = [pathOrLng, lngOrLat];
+    this.coordinates = [constrainLongitude(pathOrLng), lngOrLat];
   }
   this.changed();
 };

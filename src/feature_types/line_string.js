@@ -1,4 +1,5 @@
 var Feature = require('./feature');
+var constrainLongitude = require('../lib/constrain_longitude');
 
 var LineString = function(ctx, geojson) {
   Feature.call(this, ctx, geojson);
@@ -13,7 +14,7 @@ LineString.prototype.isValid = function() {
 LineString.prototype.addCoordinate = function(path, lng, lat) {
   this.changed();
   var id = parseInt(path, 10);
-  this.coordinates.splice(id, 0, [lng, lat]);
+  this.coordinates.splice(id, 0, [constrainLongitude(lng), lat]);
 };
 
 LineString.prototype.getCoordinate = function(path) {
@@ -28,7 +29,7 @@ LineString.prototype.removeCoordinate = function(path) {
 
 LineString.prototype.updateCoordinate = function(path, lng, lat) {
   var id = parseInt(path, 10);
-  this.coordinates[id] = [lng, lat];
+  this.coordinates[id] = [constrainLongitude(lng), lat];
   this.changed();
 };
 
